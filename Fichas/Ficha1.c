@@ -166,3 +166,110 @@ Nota: void f significa uma declaração mas não um prototype.
 Prototype: is necessary in order to provide information to the compiler about function, about return type,
 parameter list and function name etc. In C, declaration of function is called as prototype declaration.
 */
+
+/*2. Escreva um programa que desenhe no ecrã (usando o caracter #) um quadrado de dimensão 5. Defina para
+isso uma funçãoo que desenha um quadrado de dimensão n. Use a função putchar. O resultado da invocação 
+dessa função com um argumento 5 deverá ser o que se apresenta à direita. */
+
+void formaQ(int n){
+  for(int i=0; i<n ;i++){
+  for(int j=0; j<n; j++) 
+  putchar('#');
+  putchar('\n');
+  }
+}
+
+int main(){
+  int n;
+  printf("Digite o tamanho do quadrado:\n");
+  scanf("%d", &n);
+  formaQ(n);
+return 0;
+}
+
+/* 3. Escreva um programa que desenhe no ecrã (usando os caracteres # e _) um tabuleiro de xadrez. Defina para 
+isso uma função que desenha um tabuleiro de xadrez de dimensão n. Use a função putchar. O resultado da invocação 
+dessa função com um argumento 5 deverá ser o que se apresenta à direita. */
+
+void formaTab(int n){
+  for(int i=0; i<n;i++){
+    for(int j=0;j<n;j++)
+    if ((j+i) %2 == 0)  putchar('#');
+    else putchar('_');
+  putchar('\n');
+  }
+}
+
+int main(){
+  int n;
+  printf("Digite o tamanho do tabuleiro:\n");
+  scanf("%d", &n);
+  formaTab(n);
+return 0;
+}
+
+/*4. Escreva duas funções que desenham triangulos (usando o caracter #). O resultado da invocação dessas funções
+com um argumento 5 deverá ser o que se apresenta à direita.*/
+
+void formaTri1(int n){
+  for(int i=0; i<n*2;i++){
+    for(int j=0;j<n*2-i;j++)
+    if(j<i) putchar('#');
+  putchar('\n');
+  }
+}
+
+int main(){
+  int n;
+  printf("Digite o tamanho do triangulo:\n");
+  scanf("%d", &n);
+  formaTri1(n);
+return 0;
+}
+
+/* 1º Triângulo:
+
+#
+##
+###
+####
+#####
+####
+###
+##
+# 
+
+*/
+
+void formaTri2(int n){
+  for(int i=1; i<=n;i+=1){
+    for(int j=n-1;j>=i;j-=1) printf(" "); 
+    for(int k=1;k<=i*2-1;k++) printf("#");
+    putchar('\n');
+  }
+}
+
+int main(){
+  int n;
+  printf("Digite o tamanho do triangulo:\n");
+  scanf("%d", &n);
+  formaTri2(n);
+return 0;
+}
+
+/* 2º Triângulo:
+
+    #
+   ###
+  #####
+ #######
+#########
+
+*/
+
+int main(int argc, char const *argv[])
+{
+    formaTri1(5);
+    formaTri2(5);
+    return 0;
+}

@@ -180,6 +180,9 @@ void pascal (int v[], int N) {
 int main(){
     int q[5] = {};
     pascal(q,5);
+    for(int k = 0; k < 5; k++) {
+        printf("%d ", q[k]);
+    }
 return 0;
 }
 

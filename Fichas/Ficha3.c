@@ -10,7 +10,6 @@
 3 3 8
 4 4 10
 5 5 12
-
 */
 
 void printaCenas(){
@@ -28,10 +27,7 @@ int main(){
   	return 0;
 }
 
-
-/* (b) R.: a = endereço de i; b = endereço de j; -> i = 4 -> j = 4 + 5 -> b = 4 -> j = 9+4
-Nota: Todas as alterações do valor continuaram a ser feitas no endereço logo 'a' toma valor 4 e
-não 3. */
+// (b) R.: a = endereço de i; b = endereço de j; -> i = 4 -> j = 4 + 5 -> b = 4 -> j = 9+4
 
 int main () {
 	int i, j, *a, *b;
@@ -44,7 +40,6 @@ int main () {
 	printf ("%d\n", j);
 return 0;
 }
-
 
 /* 2. Defina uma função void swapM (int *x, int *y) que troca o valor de duas variáveis. Por exemplo, 
 o código ao lado deverá imprimir no ecran 5 3. */

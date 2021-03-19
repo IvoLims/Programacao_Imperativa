@@ -30,15 +30,13 @@ int minusculas2 (char s[]){
 	  return res;
 }
 
-int main()
-{
-	  char s[20];
+int main(){
+    char s[20];
     printf("Digite uma String:\n");
     scanf("%[^\n]", s); 
-	  int res = minusculas1(s);
+    int res = minusculas1(s);
     printf("A String mudada é %s e foram mudadas %d.\n", s,res);
-
-	  return 0;
+    return 0;
 }
 
 /* 2. Defina uma função int contalinhas (char s[]) que calcula quantas linhas tem uma
@@ -52,13 +50,12 @@ int contalinhas (char s[]){
     return res;
 }
 
-int main()
-{
-	  char s[20];
+int main(){
+    char s[20];
     printf("Digite as suas Strings:\n");
     scanf("%[^\t]", s); //tab delimits
     printf("Ao todo existem %d linhas.\n",contalinhas(s));
-	  return 0;
+    return 0;
 }
 
 /* 3. Defina uma função int contaPal (char s[]) que calcula quantas palavras tem uma
@@ -74,13 +71,12 @@ int contaPal (char s[]){
     return res;
 }
 
-int main()
-{
-	  char s[20];
+int main(){
+    char s[20];
     printf("Digite as suas Strings:\n");
     scanf("%[^\t]", s); //tab delimits
     printf("Ao todo existem %d palavras.\n",contaPal(s));
-	  return 0;
+    return 0;
 }
 
 /* 4. Defina uma função int procura (char *p, char *ps[], int N) que procura uma
@@ -163,13 +159,13 @@ int top2 (STACK *s){
 }
 
 int main(){
-  STACK* s = malloc(sizeof(struct stack));
-  push(s,10);
-  push(s,20);
-  push(s,30);
-  while(isEmptyS(s) != 0){
-        printf("%d the element in the top\n",top2(s));
-        printf("%d popped from stack\n", pop2(s));
-  }
-  return 0;
+    STACK* s = malloc(sizeof(struct stack));
+    push(s,10);
+    push(s,20);
+    push(s,30);
+    while(isEmptyS(s) != 0){
+          printf("%d the element in the top\n",top2(s));
+          printf("%d popped from stack\n", pop2(s));
+    }
+    return 0;
 }

@@ -116,7 +116,7 @@ int isEmptyS (STACK *s){
 }
 
 /* (c) int push (STACK *s, int x) que acrescenta x ao topo de s; a função deve retornar 0 se a operação 
-fˆor feita com sucesso (i.e., se a stack ainda não estiver cheia)e 1 se a operação não fˆor possível 
+for feita com sucesso (i.e., se a stack ainda não estiver cheia) e 1 se a operação não for possível 
 (i.e., se a stack estiver cheia). */
 
 int push (STACK *s, int x){
@@ -150,7 +150,7 @@ int top (STACK *s, int *x){
 
 int pop2 (STACK *s){
     if(isEmptyS(s) == 0) return 1;
-    return s->valores[--(s->sp)];;
+    return s->valores[--(s->sp)];
 }
 
 int top2 (STACK *s){

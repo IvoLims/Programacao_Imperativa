@@ -99,7 +99,29 @@ int main(){
 return 0;
 }
 
-/* 5. Defina uma função int maximum (int v[], int N, int *m) que coloca em *m o maior dos
+/*5. Defina uma função void inverteArray (int v[], int N) que inverte um array. Escreva 
+duas versões, cada uma usando uma das funções das alíneas anteriores. */
+
+void inverteArray (int v[], int N){
+     for(int i=0;i<N;i++){
+         for(int j=i+1;j<N;j++){
+             if(v[i] <= v[j]) swap(v,i,j); /*swapM(&v[i],&v[j]);*/
+         }
+     }
+}
+
+
+int main(){
+    int x [15] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+    for (int i = 0; i < 15; i++) printf("%d ", x[i]); //Print original vals
+    inverteArray(x,15);
+    printf("\n");
+    for (int i = 0; i < 15 ; i++) printf("%d ", x[i]); //Print array in reverse order
+    printf("\n");
+  return 0;
+}
+
+/* 6. Defina uma função int maximum (int v[], int N, int *m) que coloca em *m o maior dos
 elementos do vector v. A função deverá retornar 0 sse tal for possível (i.e., quando N>0). */
 
 int maximum (int v[], int N, int *m){
@@ -121,7 +143,7 @@ int main(){
 return 0;
 }
 
-/* 6. Defina uma função void quadrados (int q[], int N) que preenche o vector q com os quadrados dos 
+/* 7. Defina uma função void quadrados (int q[], int N) que preenche o vector q com os quadrados dos 
 primeiros N números naturais. */
 
 void quadrados (int q[], int N){
@@ -141,7 +163,7 @@ int main(){
 return 0;
 }
 
-/* 7. O triângulo de Pascal é uma forma de calcular os coeficientes da expansão do binómio de Newton.
+/* 8. O triângulo de Pascal é uma forma de calcular os coeficientes da expansão do binómio de Newton.
 Ao lado relembramos as 5 primeiras linhas. Note que a linha n do triângulo tem n elementos
 e que a linha n + 1 pode ser obtida a partir da linha n usando o seguinte processo:
 

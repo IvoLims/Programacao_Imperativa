@@ -47,6 +47,41 @@ int main() {
 
 // Can see in here: https://stackoverflow.com/questions/66790357/how-do-i-remove-duplicate-vowels-from-a-string
 
+//Another one more difficult to understand
+
+int isVowel(char ch){
+    if (ch >= 'A' && ch <= 'Z')
+        ch = (ch - 'A') + 'a';
+    return (ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u');
+} 
+ 
+int removeVowels(char *s){
+    int removed = 0;
+    if (s){
+        while (*s != '\0'){
+               char ch = *s++; 
+               if (isVowel(ch) && (*s == ch)){
+                   char *src = s, *dst = s;
+                   do {
+                       ++src;
+                       ++removed;
+                   }while (*src == ch);
+				       while (*src != '\0') {*dst++ = *src++;
+				       }
+				       *dst = '\0';
+            }
+        }
+    } 
+    return removed;
+}
+ 
+int main(){
+	char s[] = "Estaa e umaa string coom duuuplicadoos";
+	int removed = removeVowels(s);
+	printf("%s\nRemoved: %d\n", s, removed);
+	return 0;
+}
+
 /* 3. Defina uma função int duplicaVogais (char *s) que duplica todas as vogais de uma string. A função deve retornar
 o número de caracteres acrescentados. Assuma que o array recebido como argumento tem capacidade para armazenar o resultado pretendido. */
 

@@ -170,17 +170,20 @@ o array de forma a que começam por aparecer todos os elementos menores ou iguai
 função retorna o número de elementos que ficaram na primeira parte do array (i.e., que são menores ou iguais a x). */
 
 int partition (int v[], int N, int x){
-    int res = 0,k=0,j=0;
-    int copy1[N],copy2[N];
-    for(int i=0;i<N;i++){
+    int res=0,j=0,k=0,i=0;
+    int copy1[N];
+    for(;i<N;i++){
         if(v[i]<=x){
            copy1[j++]+=v[i],res++;
-        } else{copy2[k++]+=v[i];}
+        }
+    }k=res,i=0;
+    while(k<=N){
+        if(v[i] > x){
+           copy1[k]+=v[i];
+           k++,i++;
+        }else i++;
     }
-    memcpy(v,copy1, res*sizeof(int)), k=0;
-    for(;k<N-res;k++){
-        v[j++]=copy2[k];
-    }
+    memcpy(v,copy1, N*sizeof(int));
     return res;
 }
 

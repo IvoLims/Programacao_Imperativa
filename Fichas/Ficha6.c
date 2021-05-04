@@ -37,8 +37,7 @@ int Senqueue (SQueue q, int x){
     if(q->front + q->length >= Max) return 1;
     else
        q->values[q->front + q->length++] = x;
-    return 0;
-        
+    return 0;       
 }
 
 /* (d) int Sdequeue (SQueue q, int *x) que remove de uma queue o elemento que está no

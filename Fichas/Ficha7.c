@@ -77,12 +77,12 @@ Palavras acrescentaInicio (Palavras l, char *p){
 Palavras acrescentaFim (Palavras l, char *p){
     while(l!=NULL &&( strcmp ((l)->palavra,p) != 0))
           l= l->prox;
-    if(l == NULL){
-       l = malloc(sizeof(struct celula));
-       strcpy(l-> palavra, p);
-       l->ocorr =1;
-       l->prox = NULL;
-    } else l ->ocorr++;
+          if(l == NULL){
+             l = malloc(sizeof(struct celula));
+             strcpy(l-> palavra, p);
+             l->ocorr =1;
+             l->prox = NULL;
+             } else l ->ocorr++;
     return l;
 }
 

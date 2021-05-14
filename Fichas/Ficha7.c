@@ -194,14 +194,14 @@ faz-se no início da lista). */
 typedef LInt Stack;
 
 LInt newLInt (int x, LInt xs){
-	LInt r = malloc (sizeof (struct slist));
-	r->valor = x;
-	r->prox  = xs;
-	return r;
+     LInt r = malloc (sizeof (struct slist));
+     r->valor = x;
+     r->prox  = xs;
+     return r;
 }
 
 void initStack (Stack *s) {
-	   (*s) == NULL;
+     (*s) == NULL;
 }
 
 int isEmptyS (Stack *s) {
@@ -210,22 +210,22 @@ int isEmptyS (Stack *s) {
 }
 
 int push (Stack *s, int x){
-	  *s = newLInt(x,*s);
+    *s = newLInt(x,*s);
     if(isEmptyS(s) == 0) return 1;
     else return 0;
 }
 
 int pop (Stack *s, int *x){
-	  if(isEmptyS(s) == 0) return 1;
+    if(isEmptyS(s) == 0) return 1;
     *x = (*s) -> valor;
     (*s) = (*s)->prox;
-	return 0;
+    return 0;
 }
 
 int top (Stack *s, int *x){
-	  if(isEmptyS(s) == 0) return 1;
+    if(isEmptyS(s) == 0) return 1;
     *x = (*s)->valor;
-	  return 0;
+    return 0;
 }
 
 /* 4.  Podemos ainda usar listas ligadas para implementar queues. De forma a garantir a eficiência das
@@ -250,11 +250,11 @@ int isEmptyQ (Queue *q){
 int enqueue (Queue *q, int x){
   LInt temp = newLInt(x,NULL);
   if(isEmptyQ(q) == 0){
-    q->front = temp;
-    q->last = temp;
+     q->front = temp;
+     q->last = temp;
   }else {
-    q->last->prox = temp;
-    q->last = temp;
+     q->last->prox = temp;
+     q->last = temp;
   }
   return 0;
 }

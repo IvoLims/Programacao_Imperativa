@@ -187,3 +187,82 @@ int main(){
    printAluno(&tx);
    printf("Notas superiores ou iguais a 10: %d\n",supA10(t));
 }
+
+/* 3. O tipo LInt definido acima pode ser usado para implementar stacks de inteiros (a inserção
+faz-se no início da lista). */
+
+
+typedef LInt Stack;
+
+LInt newLInt (int x, LInt xs){
+	LInt r = malloc (sizeof (struct slist));
+	r->valor = x;
+	r->prox  = xs;
+	return r;
+}
+
+void initStack (Stack *s) {
+	   (*s) == NULL;
+}
+int isEmptyS (Stack *s) {
+    if(s == NULL) return 0;
+    else return 1;
+}
+int push (Stack *s, int x){
+	  *s = newLInt(x,*s);
+    if(isEmptyS(s) == 0) return 1;
+    else return 0;
+}
+int pop (Stack *s, int *x){
+	  if(isEmptyS(s) == 0) return 1;
+    *x = (*s) -> valor;
+    (*s) = (*s)->prox;
+	return 0;
+}
+int top (Stack *s, int *x){
+	  if(isEmptyS(s) == 0) return 1;
+    *x = (*s)->valor;
+	  return 0;
+}
+
+/* 4.  Podemos ainda usar listas ligadas para implementar queues. De forma a garantir a eficiência das
+várias operações guardam-se os elementos ligados do primeiro para o último e guarda-se também
+o endereço do último elemento armazenado. A inserção faz-se no fim da lista e a remoção no
+início*/
+
+typedef struct queue {
+LInt front, last;
+} Queue;
+
+void initQueue (Queue *q){
+  q->front = NULL;
+  q->last = NULL;
+}
+int isEmptyQ (Queue *q){
+  if(q -> front == NULL) return 0;
+  else return 1;
+}
+int enqueue (Queue *q, int x){
+  LInt temp = newLInt(x,NULL);
+  if(isEmptyQ(q) == 0){
+    q->front = temp;
+    q->last = temp;
+  }else {
+    q->last->prox = temp;
+    q->last = temp;
+  }
+  return 0;
+}
+int dequeue (Queue *q, int *x){
+  if(isEmptyQ(q) == 0) return 1;
+  *x = q->front->valor;
+  LInt temp = q->front;
+  q->front = q->front->prox;
+  free(temp);
+  return 0;
+}
+int front (Queue *q, int *x){
+    if(isEmptyQ(q) == 0) return 1;
+    *x = q->front->valor;
+    return 0;
+}

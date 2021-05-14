@@ -191,7 +191,6 @@ int main(){
 /* 3. O tipo LInt definido acima pode ser usado para implementar stacks de inteiros (a inserção
 faz-se no início da lista). */
 
-
 typedef LInt Stack;
 
 LInt newLInt (int x, LInt xs){
@@ -204,21 +203,25 @@ LInt newLInt (int x, LInt xs){
 void initStack (Stack *s) {
 	   (*s) == NULL;
 }
+
 int isEmptyS (Stack *s) {
     if(s == NULL) return 0;
     else return 1;
 }
+
 int push (Stack *s, int x){
 	  *s = newLInt(x,*s);
     if(isEmptyS(s) == 0) return 1;
     else return 0;
 }
+
 int pop (Stack *s, int *x){
 	  if(isEmptyS(s) == 0) return 1;
     *x = (*s) -> valor;
     (*s) = (*s)->prox;
 	return 0;
 }
+
 int top (Stack *s, int *x){
 	  if(isEmptyS(s) == 0) return 1;
     *x = (*s)->valor;
@@ -238,10 +241,12 @@ void initQueue (Queue *q){
   q->front = NULL;
   q->last = NULL;
 }
+
 int isEmptyQ (Queue *q){
   if(q -> front == NULL) return 0;
   else return 1;
 }
+
 int enqueue (Queue *q, int x){
   LInt temp = newLInt(x,NULL);
   if(isEmptyQ(q) == 0){
@@ -253,6 +258,7 @@ int enqueue (Queue *q, int x){
   }
   return 0;
 }
+
 int dequeue (Queue *q, int *x){
   if(isEmptyQ(q) == 0) return 1;
   *x = q->front->valor;
@@ -261,6 +267,7 @@ int dequeue (Queue *q, int *x){
   free(temp);
   return 0;
 }
+
 int front (Queue *q, int *x){
     if(isEmptyQ(q) == 0) return 1;
     *x = q->front->valor;

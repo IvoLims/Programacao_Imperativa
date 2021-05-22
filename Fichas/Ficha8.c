@@ -25,7 +25,16 @@ void initDic (Dicionario *d){
 }
 
 int acrescenta (Dicionario *d, char *pal){
-
+    while (*d != NULL && (strcmp ((*d)->palavra,pal) != 0)){
+            d = &((*d)->prox);
+            if (*d == NULL) {
+                *d = malloc (sizeof (struct entrada));
+               (*d)->palavra = strdup (pal);
+               (*d)->ocorr = 1;
+               (*d)->prox=NULL;
+            } else (*d)->ocorr++;
+    }
+    return (*d)->ocorr;
 }
 
 char *maisFreq (Dicionario d, int *c){

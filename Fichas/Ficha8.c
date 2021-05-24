@@ -5,7 +5,6 @@
 /*Vamos definir um tipo Dicionario para armazenar, para cada palavra que já apareceu no
 texto, o número de vezes que tal aconteceu. */
 
-
 typedef struct entrada{
     char *palavra;
     int ocorr;

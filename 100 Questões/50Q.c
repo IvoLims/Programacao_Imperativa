@@ -27,6 +27,7 @@ void media(){
   }while(val != 0);
   printf("The average is %d",tval/2);
 }
+
 /* 3. Defina um programa que lê (usando a função scanf uma sequência de números inteiros 
 terminada com o número 0 e imprime no ecran o segundo maior elemento. */
 
@@ -178,32 +179,161 @@ palavras de forma a terem no máximo n caracteres. Por exemplo, se a string txt 
 "liberdade, igualdade e fraternidade", a invocação de truncW (txt, 4) deve fazer
 com que passe a estar lá armazenada a string "libe igua e frat". */
 
+int spaces(char s) {
+    if (s == ' ' || s == '\n' || s == '\t')  return 1;
+    return 0;
+}
+
+void mytruncW (char t[], int n){
+    int i = 0,j = 0,s = n;
+    char copia[strlen(t)];
+    strcpy(copia,t);
+    while (copia[i]!=0) {
+        while (copia[i] != ' ' && copia[i]!= '\0') {
+            if (n > 0 && copia[i]!=' ') {
+                t[j]=copia[i];
+                n--;
+                j++;
+            }
+            i++;
+        }
+        t[j] = copia[i];
+        i++;
+        j++;
+        n=s;
+    }
+    t[j] = '\0';
+}
+
 /* 14. Defina uma função char charMaisfreq (char s[]) que determina qual o caracter mais 
 frequente numa string. A função deverá retornar 0 no caso de s ser a string vazia. */
+
+int freqC(char c, char s[]){
+  int freq = 0, j;
+  for(j = 0; s[j]; j++){
+    if(s[j] == c){
+      freq++;
+    }
+  }
+  return freq;
+}
+
+char charMaisfreq (char s[]){
+  int freq, maisFreq = 0, i;
+  char freqChar = 0;
+  for(i=0; s[i]; i++){
+    if((freq = (freqC(s[i],s))) > maisFreq){
+      maisFreq = freq;
+      freqChar = s[i];
+    }
+  }
+  printf("The most frequent char is %c appearing %d times.",freqChar,maisFreq);
+  return freqChar;
+}
 
 /* 15. Defina uma função int iguaisConsecutivos (char s[]) que, dada uma string s calcula o
 comprimento da maior sub-string com caracteres iguais. Por exemplo, iguaisConsecutivos
 ("aabcccaac") deve dar como resultado 3, correspondendo à repetição "ccc". */
 
+int iguaisConsecutivos(char s[]){
+  int freq=1, maisFreq = 0, i;
+  char freqChar;
+  if(s[0] == '\0') return 0;
+  for(i = 0; s[i]; i++){
+    if(s[i] == s[i+1]){
+      freq++;
+      freqChar = s[i];
+    } else{
+      if(freq > maisFreq){
+        maisFreq = freq;
+      }
+      freq = 1;
+    }
+  }
+  printf("The most frequent char is %c appearing %d times.",freqChar,maisFreq);
+  return maisFreq;
+}
+
 /* 16. Defina uma função int difConsecutivos (char s[]) que, dada uma string s calcula o
 comprimento da maior sub-string com caracteres diferentes. Por exemplo, difConsecutivos
 ("aabcccaac") deve dar como resultado 3, correspondendo à string "abc". */
 
+int difConsecutivos (char s[]){
+  int i, maisFreq, freq=1;
+  if(s[0] == '\0') return 0;
+  for(int i = 0; s[i];i++){
+    if(s[i] != s[i+1]){
+      freq++;
+    }
+    else{
+      if(maisFreq < freq){
+        maisFreq = freq;
+      }
+      freq = 1;
+    }
+  }
+  printf("The number of most different characters in a sequence is %d.",maisFreq);
+  return maisFreq;
+}
+
 /* 17. Defina uma função int maiorPrefixo (char s1 [], char s2 []) que calcula o comprimento 
 do maior prefixo comum entre as duas strings. */
 
+int maiorPrefixo (char s1 [], char s2 []){
+  int i;
+  for(i = 0; s1[i] == s2[i] && s1[i];i++);
+  printf("The longest common prefix between the two strings has value %d.",i);
+  return i;
+}
+
 /* 18. Defina uma função int maiorSufixo (char s1 [], char s2 []) que calcula o comprimento 
 do maior sufixo comum entre as duas strings. */
+
+int maiorSufixo (char s1 [], char s2 []){
+  int res = 0, i, j;
+  for(i = 0; s1[i]; i++);
+  for(j = 0; s2[j]; j++);
+  while(s1[i--] == s2[j--]) res++;
+  printf("The longest common suffix between the two strings has value %d.",res);
+  return res;
+}
 
 /* 19. Defina a função int sufPref (char s1[], char s2[]) que calcula o tamanho do maior
 sufixo de s1 que é um prefixo de s2. Por exemplo sufPref("batota","totalidade") deve
 dar como resultado 4, uma vez que a string "tota" é um sufixo de "batota" e um prefixo de
 "totalidade". */
 
+int sufPref(char s1[], char s2[]){
+  int res = 0, i, j=0;
+  while(s1[i] != '\0' && s2[j] != '\0'){
+    if(s1[i] != s2[j]){
+      i++;
+    }else{
+      if(s1[i] == s2[j]){
+        for(;s1[i] == s2[j] && s1[i] != '\0'; i++,j++){
+          res++;
+        }
+      }
+    }
+  }
+  printf("The longest common suffix that is prefix between the two strings has value %d.",res);
+  return res;
+}
+
 /* 20. Defina uma função int contaPal (char s[]) que conta as palavras de uma string. Uma
 palavra é uma sequência de caracteres (diferentes de espaço) terminada por um ou mais
 espaços. Assim se a string p tiver o valor "a a bb a", o resultado de contaPal (p) deve ser
 4. */
+
+int contaPal (char s[]){
+  int i = 0, res=0;
+  for(; s[i]; i++){
+    if(s[i] != ' ' && s[i] != '\n'){
+
+    }
+  }
+  return res;
+}
 
 /* 21. Defina uma função int contaVogais (char s[]) que retorna o número de vogais da string
 s. Não se esqueça de considerar tanto maiúsculas como minúsculas. */
@@ -368,6 +498,7 @@ e um array com N posições, calcula quantas dessas posições são adjacentes �
 int main(){
     int question, input;
     char s1[1024],s2[1024],si[1024];
+    char newLine;
     printf("What question you want to test?\n");
     scanf("%d",&question);
     switch(question){
@@ -400,40 +531,98 @@ int main(){
         break;
         case 7:
         printf("Write the first string: ");
-        scanf("%s",s1);
+        scanf("%c",newLine); //eat newline
+        scanf("%[^\n]s",s1);
         strcpy(si,s1);
         printf("Write the second string: ");
-        scanf("%s",s2);
+        scanf("%c",newLine); //eat newline
+        scanf("%[^\n]s",s2);
         printf("The concat string of %s and %s is %s.\n", si, s2, mystrcat(s1,s2));
         break;
         case 8:
         printf("Write the string to be copy: ");
-        scanf("%s",s1);
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s1);
         printf("The string has been copied %s.\n", mystrcpy(s2,s1));
         break;
         case 9:
         printf("Write the first string: ");
-        scanf("%s",s1);
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s1);
         printf("Write the second string: ");
-        scanf("%s",s2);
+        scanf("%[^\n]s",s2);
         printf("The comparison of the string %s with %s has value %d.\n", s1, s2, mystrcmp(s1,s2));
         break;
         case 10:
         printf("Write the first string: ");
-        scanf("%s",s1);
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s1);
         printf("Write the second string: ");
-        scanf("%s",s2);
+        scanf("%[^\n]s",s2);
         printf("The string %s with %s ocorrs in %s.\n", s1, s2, mystrstr(s1,s2));
         break;
         case 11:
         printf("Write the string you want to reverse: ");
-        scanf("%s",s1);
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s1);
         mystrrev(s1);
         break;
         case 12:
         printf("Write the string you want to remove the vowels: ");
-        scanf("%s",s1);
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s1);
         mystrnoV(s1);
+        break;
+        case 13:
+        printf("How many do you want to remove space and then write the string you want to remove letters from: ");
+        scanf("%d %[^\n]s", &input, s1);
+        mytruncW(s1,input);
+        printf("The final result is %s.",s1);
+        break;
+        case 14:
+        printf("Write the string you want to know the most frequent character: ");
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s1);
+        charMaisfreq(s1);
+        break;
+        case 15:
+        printf("Write the string you want to know the characters in a row: ");
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s1);
+        iguaisConsecutivos(s1);
+        break;
+        case 16:
+        printf("Write the string you want to know the different characters in a row: ");
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s1);
+        difConsecutivos(s1);
+        break;
+        case 17:
+        printf("Write the first string: ");
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s1);
+        printf("Write the second string: ");
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s2);
+        maiorPrefixo(s1,s2);
+        break;
+        case 18:
+        printf("Write the first string: ");
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s1);
+        printf("Write the second string: ");
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s2);
+        maiorSufixo(s1,s2);
+        break;
+        case 19:
+        printf("Write the first string: ");
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s1);
+        printf("Write the second string: ");
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s2);
+        sufPref(s1,s2);
         break;
         default:
         printf("That question doesn't exist\n");

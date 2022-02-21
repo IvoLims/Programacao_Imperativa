@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 /* 1. Defina um programa que lê (usando a função scanf uma sequência de números inteiros 
 terminada com o número 0 e imprime no ecran o maior elemento da sequência. */
@@ -346,7 +347,7 @@ int VogaisUpper(char s) {
 int contaVogais (char s[]){
   int i = 0, j = 0, res = 0;
   for(; i < strlen(s); i++){
-    toupper(s[i]);
+    s[i] = toupper(s[i]);
   }
   for(; j < strlen(s); j++){
     if(VogaisUpper(s[j]) == 1) res++;

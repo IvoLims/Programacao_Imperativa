@@ -310,7 +310,7 @@ int sufPref(char s1[], char s2[]){
       i++;
     }else{
       if(s1[i] == s2[j]){
-        for(;s1[i] == s2[j] && s1[i] != '\0'; i++,j++){
+        for(;s1[i] == s2[j] && s1[i] != '\0'; i++, j++){
           res++;
         }
       }
@@ -338,9 +338,30 @@ int contaPal (char s[]){
 /* 21. Defina uma função int contaVogais (char s[]) que retorna o número de vogais da string
 s. Não se esqueça de considerar tanto maiúsculas como minúsculas. */
 
+int VogaisUpper(char s) {
+    if (s == 'A' || s == 'E' || s == 'I' ||  s == 'O' || s == 'U') return 1;
+    return 0;
+}
+
+int contaVogais (char s[]){
+  int i = 0, j = 0, res = 0;
+  for(; i < strlen(s); i++){
+    toupper(s[i]);
+  }
+  for(; j < strlen(s); j++){
+    if(VogaisUpper(s[j]) == 1) res++;
+  }
+  printf("There's %d vowels in the string.\n", res);
+  return res;
+}
+
 /* 22. Defina uma função int contida (char a[], char b[]) que testa se todos os caracteres da
 primeira string também aparecem na segunda. Por exemplo, contida "braga" "bracara
 augusta" deve retornar verdadeiro enquanto que contida "braga" "bracarense" deve retornar falso. */
+
+int contida (char a[], char b[]){
+  
+}
 
 /* 23. Defina uma função int palindorome (char s[]) que testa se uma palavra é palíndrome,
 i.e., lê-se de igual forma nos dois sentidos. */
@@ -623,6 +644,18 @@ int main(){
         scanf("%c",si); //eat newline
         scanf("%[^\n]s",s2);
         sufPref(s1,s2);
+        break;
+        case 20:
+        printf("Write the string you want to count the words: ");
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s1);
+        contaPal(s1);
+        break;
+        case 21:
+        printf("Write the string you want to count the vowels: ");
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s1);
+        contaVogais(s1);
         break;
         default:
         printf("That question doesn't exist\n");

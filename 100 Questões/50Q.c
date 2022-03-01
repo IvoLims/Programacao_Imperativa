@@ -329,11 +329,11 @@ espaços. Assim se a string p tiver o valor "a a bb a", o resultado de contaPal 
 int contaPal (char s[]){
   int i = 0, res=0;
   for(; s[i]; i++){
-    if(s[i] != ' ' && s[i] != '\n'){
-
+    if(s[i] == ' ' || s[i] == '\n' || s[i] == '\t'){
+      res++;
     }
   }
-  return res;
+  return res+1;
 }
 
 /* 21. Defina uma função int contaVogais (char s[]) que retorna o número de vogais da string

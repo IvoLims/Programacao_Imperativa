@@ -527,6 +527,12 @@ contendo em cada posição o número de ocorrências desse índice. Assim o mult
 Apresente uma definição da função int cardinalMSet (int N, int v[N]) que calcula a
 número de elementos do multi-conjunto v. */
 
+int cardinalMSet (int N, int v[N]){
+  int card = v[0],i;
+  for(i=0;i<N;i++) card += v[i];
+  return card;
+}
+
 /* 47. Considere as seguintes definições para representar as posições e movimentos de um robot. */
 
 typedef enum movimento {Norte, Oeste, Sul, Este} Movimento;

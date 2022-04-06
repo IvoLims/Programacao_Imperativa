@@ -1,6 +1,5 @@
 #include <stdio.h>
 #include <string.h>
-#include <ctype.h>
 
 /* 1. Defina um programa que lê (usando a função scanf uma sequência de números inteiros 
 terminada com o número 0 e imprime no ecran o maior elemento da sequência. */
@@ -395,6 +394,16 @@ retirados. */
 /* 30. Defina uma função int menosFreq (int v[], int N) que recebe um vector v com N elementos 
 ordenado por ordem crescente e retorna o menos frequente dos elementos do vector. Se houver mais 
 do que um elemento nessas condições deve retornar o que começa por aparecer no índice mais baixo. */
+
+int menosFreq (int v[], int N){
+  int freq = 1,freqMin = N, menor = v[0], indexM = N, i;
+  for(i=1;i<N;i++){
+    if(v[i] == v[i-1]) freq++;
+    else if(v[i] != v[i-1] && freq < freqMin && i < indexM) menor = v[i-1], freqMin = freq, freq = 1;
+    else freq = 1;
+  }
+  return menor;
+}
 
 /* 31. Defina uma função int maisFreq (int v[], int N) que recebe um vector v com N elementos ordenado 
 por ordem crescente e retorna o mais frequente dos elementos do vector. Se houver mais do que um elemento 

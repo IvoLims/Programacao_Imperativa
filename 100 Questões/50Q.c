@@ -422,6 +422,14 @@ void merge (int r [], int a[], int b[], int na, int nb) {
 vector a, entre as posições i e j (inclusivé) estão ordenados por ordem crescente. A função
 deve retornar 1 ou 0 consoante o vector esteja ou não ordenado. */
 
+int crescente (int a[], int i, int j){   //1 - true; 0 - false
+  int res = 1;
+  for(; i<j && res == 1; i++){
+    if(a[i] > a[i+1]) res = 0; 
+  }
+  return res;
+}
+
 /* 29. Defina uma função int retiraNeg (int v[], int N) que retira os números negativos de
 um vector com N inteiros. A função deve retornar o número de elementos que não foram
 retirados. */
@@ -561,6 +569,14 @@ int minInd (int v[], int n){
 
 /* 38. Defina uma função void somasAc (int v[], int Ac [], int N) que preenche o vector
 Ac com as somas acumuladas do vector v. Por exemplo, na posição Ac[3] deve ser calculado como v[0]+v[1]+v[2]+v[3]. */
+
+void somasAc (int v[], int Ac [], int N){
+  int i, sum=0;
+  for(i=0; i < N; i++){
+    sum+=v[i];
+    Ac[i] = sum;
+  }
+}
 
 /* 39. Defina uma função int triSup (int N, float m [N][N]) que testa se uma matriz quadrada é triangular 
 superior, i.e., que todos os elementos abaixo da diagonal são zeros. */

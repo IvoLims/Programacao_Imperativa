@@ -96,11 +96,11 @@ source[]) que copia a string source para dest retornando o valor desta última. 
 
 char* mystrcpy (char *dest, char source[]){
   int i=0;
-  while(dest[i] == source[i]){
-    i++;
+  for(i=0; source[i];i++){
+    dest[i] = source[i];
   }
   dest[i] = '\0';
-  return &(dest[0]);
+  return dest;
 }
 
 /* 9. Apresente uma definição da função pré-definida em C int strcmp (char s1[], char s2[])

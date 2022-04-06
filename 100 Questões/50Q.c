@@ -379,6 +379,21 @@ por um único espaço. A função deve retornar o comprimento da string resultan
 vector ordenado. Assuma que as N primeiras posições do vector estão ordenadas e que por
 isso, após a inserção o vector terá as primeiras N+1 posições ordenadas. */
 
+void insere (int v[], int N, int x){
+  int i, j, k;
+  for(i=0; i < N; i++){
+    if(v[i] > x){
+      for(j=N; j > i; j--){
+        v[j] = v[j-1];
+      }
+      v[i] = x;
+      break;
+    }
+    if(i == N-1) v[N] = x;
+  }
+  for(int k = 0; k<N; k++) printf("%d ",v[k]);
+}
+
 /* 27. Defina uma função void merge (int r [], int a[], int b[], int na, int nb) que, dados 
 vectores ordenados a (com na elementos) e b (com nb elementos), preenche o vector r (com
 na+nb elementos) com os elementos de a e b ordenados. */

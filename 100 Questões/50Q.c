@@ -466,6 +466,14 @@ que os vectores a e b não estão ordenados e defina a função sem alterar os v
 /* 37. Defina uma função int minInd (int v[], int n) que, dado um vector v com n inteiros,
 retorna o índice do menor elemento do vector. */
 
+int minInd (int v[], int n){
+  int i, ind = 0;
+  for(i = 0; i<n; i++){
+    if(v[i]<v[ind]) ind = i;
+  }
+  return ind;
+}
+
 /* 38. Defina uma função void somasAc (int v[], int Ac [], int N) que preenche o vector
 Ac com as somas acumuladas do vector v. Por exemplo, na posição Ac[3] deve ser calculado como v[0]+v[1]+v[2]+v[3]. */
 

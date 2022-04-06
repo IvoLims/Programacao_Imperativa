@@ -391,6 +391,17 @@ deve retornar 1 ou 0 consoante o vector esteja ou não ordenado. */
 um vector com N inteiros. A função deve retornar o número de elementos que não foram
 retirados. */
 
+int retiraNeg (int v[], int N){
+  int rem = 0,i,j=0;
+  for(i = 0; i < N; i++){
+    if(v[i]<0){
+      rem++;
+    }
+    else if(v[i]>0 && j<N-1) v[j] = v[i],j++;
+  }
+  return N - rem;
+}
+
 /* 30. Defina uma função int menosFreq (int v[], int N) que recebe um vector v com N elementos 
 ordenado por ordem crescente e retorna o menos frequente dos elementos do vector. Se houver mais 
 do que um elemento nessas condições deve retornar o que começa por aparecer no índice mais baixo. */

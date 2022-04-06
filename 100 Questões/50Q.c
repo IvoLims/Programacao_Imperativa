@@ -476,6 +476,25 @@ Por exemplo, se o vector v contiver nas suas primeiras 10 posições os números
 a invocação elimRep (v,10) deverá retornar 5 e colocar nas primeiras 5 posições do vector
 os elementos {1,2,3,4,5}. */
 
+int pertence (int v[], int N,int j) {
+    int i, r = 0;
+    for (i = 0; i < j && i<N && r == 0; i++)
+        if (v[i] == v[j]) r = 1;
+    return r;
+}
+
+int elimRep (int  v[],int n) {
+    int i, j = 0;
+    for (i = 0; i<n; i++){
+        if (pertence(v,n,i) == 0) {// 0 - não repete; 1 - repete
+            v[j] = v[i];
+            j++;
+        }
+    }
+    for(int k = 0; k<n; k++) printf("%d ",v[k]);
+    return j;
+}
+
 /* 34. Defina uma função int elimRepOrd (int v[], int n) que recebe um vector v com n inteiros ordenado 
 por ordem crescente e elimina as repetições. A função deverá retornar o número de elementos do vector resultante. */
 

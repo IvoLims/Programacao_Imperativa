@@ -498,6 +498,28 @@ int elimRep (int  v[],int n) {
 /* 34. Defina uma função int elimRepOrd (int v[], int n) que recebe um vector v com n inteiros ordenado 
 por ordem crescente e elimina as repetições. A função deverá retornar o número de elementos do vector resultante. */
 
+int pertence(int* v, int j, int N){
+  for(int i = 0; i<N && i<j; i++){
+    if(v[i] == v[j]){
+      return 1;
+      break;
+    }
+  }
+  return 0;
+}
+
+int elimRepOrd (int v[], int n){
+  int i, j=0;
+  for(i = 0; i<n; i++){
+    if(pertence(v,i,n) == 0){
+      v[j] = v[i];
+      j++;
+    }
+  }
+  for(int k = 0; k<n; k++) printf("%d ",v[k]);
+  return j;
+}
+
 /* 35. Defina uma função int comunsOrd (int a[], int na, int b[], int nb) que calcula quantos elementos 
 os vectores a (com na elementos) e b (com nb elementos) têm em comum. Assuma que os vectores a e b estão 
 ordenados por ordem crescente. */

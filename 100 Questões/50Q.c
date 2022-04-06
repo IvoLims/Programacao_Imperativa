@@ -425,6 +425,27 @@ sequência crescente de elementos consecutivos num vector v com N elementos. Por
 se o vector contiver 10 elementos pela seguinte ordem: 1, 2, 3, 2, 1, 4, 10, 12, 5, 4, a
 função deverá retornar 4, correspondendo ao tamanho da sequência 1, 4, 10, 12. */
 
+int maxCresc (int v[], int N){
+  int seq, mSeq = 0,i,j,k;
+  for(i = 0; i<N; i++){
+    seq = 1;
+    j = i+1;
+    for(k=i;v[k]<=v[j];k++) j++, seq++;
+    if(seq > mSeq) mSeq = seq;
+  }
+  return mSeq;
+}
+
+int maxCresc2 (int v[], int N){
+  int seq, mSeq = 0,i,ant=v[0],j;
+  for(i = 1; i<N; i++){
+    if(ant <= v[i]) seq++, ant = v[i];
+    else if(seq > mSeq) mSeq = seq, seq=1, ant = v[i];
+    else seq = 1, ant = v[i];
+  }
+  return mSeq;
+}
+
 /* 33. Defina uma função int elimRep (int v[], int n) que recebe um vector v com n inteiros e
 elimina as repetições. A função deverá retornar o número de elementos do vector resultante.
 Por exemplo, se o vector v contiver nas suas primeiras 10 posições os números {1, 2, 3, 2, 1, 4, 2, 4, 5, 4}

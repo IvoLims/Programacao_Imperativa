@@ -359,8 +359,21 @@ int contaVogais (char s[]){
 primeira string também aparecem na segunda. Por exemplo, contida "braga" "bracara
 augusta" deve retornar verdadeiro enquanto que contida "braga" "bracarense" deve retornar falso. */
 
+int pertence(char a, char* b){
+  int j;
+  for(j=0;b[j];j++){
+    if(b[j] == a) return 1;
+  }
+  return 0;
+}
+
 int contida (char a[], char b[]){
-  
+  int i=0;
+  while(a[i]){
+    if((pertence(a[i],b)) == 0) return 0;
+    i++;
+  }
+  return 1;
 }
 
 /* 23. Defina uma função int palindorome (char s[]) que testa se uma palavra é palíndrome,
@@ -382,8 +395,37 @@ comprimento da string resultante. Assim, por exemplo, ao invocarmos a função c
 vector contendo "aaabaaabbbaaa", o vector deve passar a conter a string "ababa" e a função
 deverá retornar o valor 5. */
 
+int remRep (char x[]) {
+    int i,j;
+    j = 0;
+    for (i = 0; x[i]!='\0';i++){
+        if (x[i] != x [i+1]){
+            x[j] = x[i];
+            j++;
+        }
+    }
+    x[j] = '\0';
+    return j;
+}
+
 /* 25. Defina uma função int limpaEspacos (char t[]) que elimina repetições sucessivas de espaços
 por um único espaço. A função deve retornar o comprimento da string resultante. */
+
+int limpaEspacos (char t[]) {
+    char copy[strlen(t)];
+    int i, j;
+    strcpy(copy, t);
+    for (i = 0, j = 0; copy[i] != '\0'; i++){
+        if (copy[i] == copy [i+1] && copy[i] == ' '){
+            t[j] = copy[i];
+        } else {
+            t[j] = copy[i];
+            j++;
+        }
+    }
+    t[j] = '\0';
+    return strlen(t);
+}
 
 /* 26. Defina uma função void insere (int v[], int N, int x) que insere um elemento (x) num
 vector ordenado. Assuma que as N primeiras posições do vector estão ordenadas e que por

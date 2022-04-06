@@ -407,10 +407,10 @@ ordenado por ordem crescente e retorna o menos frequente dos elementos do vector
 do que um elemento nessas condições deve retornar o que começa por aparecer no índice mais baixo. */
 
 int menosFreq (int v[], int N){
-  int freq = 1,freqMin = N, menor = v[0], indexM = N, i;
+  int freq = 1,freqMin = N, menor = v[0], i;
   for(i=1;i<N;i++){
     if(v[i] == v[i-1]) freq++;
-    else if(v[i] != v[i-1] && freq < freqMin && i < indexM) menor = v[i-1], freqMin = freq, freq = 1;
+    else if(v[i] != v[i-1] && freq < freqMin) menor = v[i-1], freqMin = freq, freq = 1;
     else freq = 1;
   }
   return menor;
@@ -419,6 +419,15 @@ int menosFreq (int v[], int N){
 /* 31. Defina uma função int maisFreq (int v[], int N) que recebe um vector v com N elementos ordenado 
 por ordem crescente e retorna o mais frequente dos elementos do vector. Se houver mais do que um elemento 
 nessas condições deve retornar o que começa por aparecer no índice mais baixo. */
+
+int maisFreq (int v[], int N){
+  int i = 0,freq=1, freqM = 1,ant=v[0],ind = 0,val = v[0];
+  for(i = 1; i<N; i++)
+    if(v[i] == ant) freq++, ant = v[i];
+    else if(v[i] != ant && freq > freqM) val = ant, freqM = freq, ant = v[i],freq=1;
+    else freq = 1, ant = v[i];
+  return val;
+}
 
 /* 32. Defina uma função int maxCresc (int v[], int N) que calcula o comprimento da maior
 sequência crescente de elementos consecutivos num vector v com N elementos. Por exemplo,

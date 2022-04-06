@@ -545,6 +545,17 @@ typedef struct posicao {
 dada uma posição inicial e um array com N movimentos, calcula a posição final do robot depois
 de efectuar essa sequência de movimentos. */
 
+Posicao posFinal (Posicao inicial, Movimento mov[], int N){
+  int i;
+  for(i = 0;i<N; i++){
+    if(mov[i] == Norte) inicial.y++;
+    if(mov[i] == Sul) inicial.y--;
+    if(mov[i] == Este) inicial.x++;
+    if(mov[i] == Oeste) inicial.x--;
+  }
+  return inicial;
+}
+
 /* 48. Considere as seguintes definições para representar as posições e movimentos de um robot.
 
 typedef enum movimento {Norte, Oeste, Sul, Este} Movimento;

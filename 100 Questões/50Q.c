@@ -366,6 +366,16 @@ int contida (char a[], char b[]){
 /* 23. Defina uma função int palindorome (char s[]) que testa se uma palavra é palíndrome,
 i.e., lê-se de igual forma nos dois sentidos. */
 
+int palindorome (char s[]){
+  int i, len=0, j;
+  for(i=0;s[i];i++){len++;}
+  i=len-1;
+  for(j=0; s[j]; j++,i--){
+    if(s[j] != s[i]) return 0;
+  }
+  return 1;
+}
+
 /* 24. Defina uma função int remRep (char x[]) que elimina de uma string todos os caracteres
 que se repetem sucessivamente deixando lá apenas uma cópia. A função deverá retornar o
 comprimento da string resultante. Assim, por exemplo, ao invocarmos a função com uma
@@ -397,6 +407,16 @@ void insere (int v[], int N, int x){
 /* 27. Defina uma função void merge (int r [], int a[], int b[], int na, int nb) que, dados 
 vectores ordenados a (com na elementos) e b (com nb elementos), preenche o vector r (com
 na+nb elementos) com os elementos de a e b ordenados. */
+
+void merge (int r [], int a[], int b[], int na, int nb) {
+    int i = 0, j = 0, k = 0;
+    while(k < na + nb) {
+        if((a[i] < b[j] && i < na) || j >= nb)
+            r[k++] = a[i++];
+        else
+            r[k++] = b[j++];
+    }
+}
 
 /* 28. Defina uma função int crescente (int a[], int i, int j) que testa se os elementos do
 vector a, entre as posições i e j (inclusivé) estão ordenados por ordem crescente. A função

@@ -360,8 +360,24 @@ int contaVogais (char s[]){
 primeira string também aparecem na segunda. Por exemplo, contida "braga" "bracara
 augusta" deve retornar verdadeiro enquanto que contida "braga" "bracarense" deve retornar falso. */
 
-int contida (char a[], char b[]){
-  
+int charContido (int n, char b[]){
+    int i;
+    for (i = 0; b[i] != '\0'; i++){
+        if (b[i] == n){
+            return 1;
+        }
+    }
+    return 0;
+}
+
+int contida (char a[], char b[]) {
+    int i;
+    for (i = 0; a[i] != '\0'; i++){
+        if (!(charContido(a[i],b))){
+            return 0;
+        }
+    }
+    return 1;
 }
 
 /* 23. Defina uma função int palindorome (char s[]) que testa se uma palavra é palíndrome,
@@ -588,8 +604,18 @@ int elimRepOrd (int v[], int n){
 os vectores a (com na elementos) e b (com nb elementos) têm em comum. Assuma que os vectores a e b estão 
 ordenados por ordem crescente. */
 
-int comunsOrd (int a[], int na, int b[], int nb){
-
+int comunsOrd (int a[],int na,int b[],int nb) {
+    int i,j = 0,acc = 0;
+    for (i = 0;i<na;) {
+        if (a[i]<b[j]) i++;
+        if (a[i]>b[j]) j++;
+        if (a[i] == b[j]) {
+            i++;
+            j++;
+            acc++;
+        }
+    }
+    return acc;
 }
 
 /* 36. Defina uma função int comuns (int a[], int na, int b[], int nb) que calcula quantos
@@ -597,7 +623,17 @@ elementos os vectores a (com na elementos) e b (com nb elementos) têm em comum.
 que os vectores a e b não estão ordenados e defina a função sem alterar os vectores. */
 
 int comuns (int a[], int na, int b[], int nb){
-
+    int x, i, count;
+    count = 0;
+    for (x = 0; x < na; x++){
+        for(i = 0; i< nb; i++){
+            if(a[x] == b[i]){
+                count++;
+                break;
+            }
+        }
+    }
+    return count;
 }
 
 /* 37. Defina uma função int minInd (int v[], int n) que, dado um vector v com n inteiros,
@@ -628,19 +664,37 @@ void somasAc (int v[], int Ac [], int N){
 superior, i.e., que todos os elementos abaixo da diagonal são zeros. */
 
 int triSup (int N, float m [N][N]){
-
+    int x, i, r = 1;
+    for (x = 0; x < N; x++){
+        for ( i = 0; i < N; i++){
+            if(i < x && m[x][i] != 0) r = 0;
+        }
+    }
+    return r;
 }
 
 /* 40. Defina uma função void transposta (int N, float m [N][N]) que transforma uma matriz na sua transposta. */
 
-void transposta (int N, float m [N][N]){
-
+void transposta (int N,float m[N][N]){
+int i, j;
+float p;
+for(i = 0; i < N; i++)
+  for(j = 0; j < i ; j++){
+    p = m[i][j];
+    m[i][j] = m[j][i];
+    m[j][i] = p;
+}
 }
 
 /* 41. Defina uma função void addTo (int N, int M, int a [N][M], int b[N][M]) que adiciona a segunda matriz à primeira. */
 
 void addTo (int N, int M, int a [N][M], int b[N][M]){
-
+    int x,i;
+    for (x = 0; x < N; x++){
+        for (i = 0; i < M; i++){
+          a[x][i] += b[x][i];
+        }
+    }
 }
 
 /* 42. Uma forma de representar conjuntos de índices consiste em usar um array de inteiros contendo
@@ -650,7 +704,17 @@ Apresente uma definição da função int unionSet (int N, int v1[N], int v2[N],
 r[N]) que coloca no array r o resultado da união dos conjuntos v1 e v2. */
 
 int unionSet (int N, int v1[N], int v2[N], int r[N]){
-
+    int x, j= 0;
+    for (x = 0; x < N; x++){
+        if(v1[x] == 1 || v2[x] == 1){
+            r[j] = 1;
+            j++;
+        }
+        else if(v1[x] == 0 && v2[x] == 0){
+            r[j] = 0;
+            j++;
+        }
+    }
 }
 
 /* 43. Uma forma de representar conjuntos de índices consiste em usar um array de inteiros contendo
@@ -659,8 +723,12 @@ representado por um array em que as primeiras 8 posições conteriam {0,1,0,0,1,
 Apresente uma definição da função int intersectSet (int N, int v1[N], int v2[N],
 int r[N]) que coloca no array r o resultado da intersecção dos conjuntos v1 e v2. */
 
-int intersectSet (int N, int v1[N], int v2[N], int r[N]){
-
+void intersectSet (int N, int v1[N], int v2[N],int r[N]){
+    int i;
+    for (i = 0; i < N; i++){
+        if(v1[i] == 1 && v2[i] == 1) r[i] = 1;
+        else r[i] = 0;
+    }
 }
 
 /* 44. Uma forma de representar multi-conjuntos de índices consiste em usar um array de inteiros
@@ -670,8 +738,12 @@ contendo em cada posição o número de ocorrências desse índice. Assim o mult
 Apresente uma definição da função int intersectMSet (int N, int v1[N], int v2[N],
 int r[N]) que coloca no array r o resultado da intersecção dos multi-conjuntos v1 e v2. */
 
-int intersectMSet (int N, int v1[N], int v2[N], int r[N]){
-
+void intersectMSet (int N, int v1[N], int v2[N],int r[N]){
+    int i,j;
+    for(i=0;i<N;i++){
+        if(v1[i] > v2[i]) r[i] = v2[i];
+        else r[i] = v1[i];
+    }
 }
 
 /* 45. Uma forma de representar multi-conjuntos de índices consiste em usar um array de inteiros
@@ -681,8 +753,12 @@ contendo em cada posição o número de ocorrências desse índice. Assim o mult
 Apresente uma definição da função int unionMSet (int N, int v1[N], int v2[N], int
 r[N]) que coloca no array r o resultado da união dos multi-conjuntos v1 e v2. */
 
-int unionMSet (int N, int v1[N], int v2[N], int r[N]){
-
+void unionMSet (int N, int v1[N], int v2[N], int r[N]){
+    int i;
+    for(i=0; i < N; i++){
+        if(v1[i] > v2[i]) r[i] = v1[i];
+        else r[i] = v2[i];
+    }
 }
 
 /* 46. Uma forma de representar multi-conjuntos de índices consiste em usar um array de inteiros
@@ -737,7 +813,31 @@ preenchidos. Se não for possível atingir a posição final com N movimentos, a
 retornar um número negativo. */
 
 int caminho (Posicao inicial, Posicao final, Movimento mov[], int N){
-
+    int x,r = 0;
+    for(x=0; inicial.x != final.x || inicial.y != final.y; x++){
+        if(inicial.y < final.y){
+            mov[x] = Norte;
+            inicial.y += 1;
+            r++;
+        }
+        else if(inicial.y > final.y){
+            mov[x] = Sul;
+            inicial.y -= 1;
+            r++;
+        }
+        else if(inicial.x < final.x){
+            mov[x] = Este;
+            inicial.x += 1;
+            r++;
+        }
+        else if(inicial.x < final.x){
+            mov[x] = Oeste;
+            inicial.x -= 1;
+            r++;
+        }
+    }
+    if(r > N) r = -1;
+    return r;
 }
 
 /* 49. Considere o seguinte tipo para representar a posição de um robot numa grelha.
@@ -750,8 +850,16 @@ Defina a função int maisCentral (Posicao pos[], int N) que, dado um array com 
 determina o índice da posição que está mais perto da origem (note que as coordenadas de cada 
 ponto são números inteiros). */
 
-int maisCentral (Posicao pos[], int N){
-
+int maisCentral (Posicao pos[], int N) {
+    int i,tmp,r = (pos[0].x)*(pos[0].x) +(pos[0].y)*(pos[0].y),p = 0;
+    for (i = 0;i<N;i++) {
+        tmp = (pos[i].x)*(pos[i].x)+(pos[i].y)*(pos[i].y);
+        if (tmp<r) {
+            r = tmp;
+            p = i;
+        }
+    }
+    return p;
 }
 
 /* 50. Considere o seguinte tipo para representar a posição de um robot numa grelha.
@@ -764,7 +872,15 @@ Defina a função int vizinhos (Posicao p, Posicao pos[], int N) que, dada uma p
 e um array com N posições, calcula quantas dessas posições são adjacentes à posição dada. */
 
 int vizinhos (Posicao p, Posicao pos[], int N){
-
+    int i, count;
+    count = 0;
+    for (i = 0; i < N; i++){
+        if (p.x == pos[i].x && p.y == pos[i].y+1) count++;
+        if (p.x == pos[i].x && p.y == pos[i].y-1) count++;
+        if (p.y == pos[i].y && p.x == pos[i].x+1) count++;
+        if (p.y == pos[i].y && p.x == pos[i].x-1) count++;
+    }
+    return count;
 }
 
 /*♅-----------------------------------------------------------------------Main Para Testes----------------------------------------------------------------------♅*/

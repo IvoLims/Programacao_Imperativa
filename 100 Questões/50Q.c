@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+#include <ctype.h>
 
 /* 1. Defina um programa que lê (usando a função scanf uma sequência de números inteiros 
 terminada com o número 0 e imprime no ecran o maior elemento da sequência. */
@@ -96,11 +97,11 @@ source[]) que copia a string source para dest retornando o valor desta última. 
 
 char* mystrcpy (char *dest, char source[]){
   int i=0;
-  for(i=0; source[i];i++){
-    dest[i] = source[i];
+  while(dest[i] == source[i]){
+    i++;
   }
   dest[i] = '\0';
-  return dest;
+  return &(dest[0]);
 }
 
 /* 9. Apresente uma definição da função pré-definida em C int strcmp (char s1[], char s2[])
@@ -359,34 +360,22 @@ int contaVogais (char s[]){
 primeira string também aparecem na segunda. Por exemplo, contida "braga" "bracara
 augusta" deve retornar verdadeiro enquanto que contida "braga" "bracarense" deve retornar falso. */
 
-int pertence(char a, char* b){
-  int j;
-  for(j=0;b[j];j++){
-    if(b[j] == a) return 1;
-  }
-  return 0;
-}
-
 int contida (char a[], char b[]){
-  int i=0;
-  while(a[i]){
-    if((pertence(a[i],b)) == 0) return 0;
-    i++;
-  }
-  return 1;
+  
 }
 
 /* 23. Defina uma função int palindorome (char s[]) que testa se uma palavra é palíndrome,
 i.e., lê-se de igual forma nos dois sentidos. */
 
 int palindorome (char s[]){
-  int i, len=0, j;
-  for(i=0;s[i];i++){len++;}
-  i=len-1;
-  for(j=0; s[j]; j++,i--){
-    if(s[j] != s[i]) return 0;
+  int i, j = strlen(s)-1, r=0;
+  for(i=0; s[i]; i++, j--){
+    if(s[i] != s[j]){
+      r = 1;
+    }
   }
-  return 1;
+  printf("The word has value %d.\n0 - Is a palindrome.\n1 - Isn't a palindrome.\n", r);
+  return r;
 }
 
 /* 24. Defina uma função int remRep (char x[]) que elimina de uma string todos os caracteres
@@ -395,36 +384,34 @@ comprimento da string resultante. Assim, por exemplo, ao invocarmos a função c
 vector contendo "aaabaaabbbaaa", o vector deve passar a conter a string "ababa" e a função
 deverá retornar o valor 5. */
 
-int remRep (char x[]) {
-    int i,j;
-    j = 0;
-    for (i = 0; x[i]!='\0';i++){
-        if (x[i] != x [i+1]){
-            x[j] = x[i];
-            j++;
-        }
-    }
-    x[j] = '\0';
-    return j;
+int remRep (char x[]){
+  int i=0, len=0, j=0;
+  for(;x[i];i++){
+    if(x[i]!=x[i+1]) len++;
+  }
+  char xf[len];
+  for(i=0;x[i];i++){
+    if(x[i] != x[i+1]) xf[j] = x[i],j++;
+  }
+  printf("The result string is %s and has length %d.\n",strcpy(x,xf),len);
+  return len;
 }
 
 /* 25. Defina uma função int limpaEspacos (char t[]) que elimina repetições sucessivas de espaços
 por um único espaço. A função deve retornar o comprimento da string resultante. */
 
-int limpaEspacos (char t[]) {
-    char copy[strlen(t)];
-    int i, j;
-    strcpy(copy, t);
-    for (i = 0, j = 0; copy[i] != '\0'; i++){
-        if (copy[i] == copy [i+1] && copy[i] == ' '){
-            t[j] = copy[i];
-        } else {
-            t[j] = copy[i];
-            j++;
-        }
-    }
-    t[j] = '\0';
-    return strlen(t);
+int limpaEspacos (char t[]){
+  int i=0, len=0, j=0;
+  for(; t[i]; i++){
+    if((t[i] != ' ' || t[i] != '\n' || t[i] != '\t') && t[i] != t[i+1]) len++;
+  }
+  char tf[len];
+  for(i=0; t[i]; i++){
+    if((t[i] == ' ' || t[i] == '\n' || t[i] == '\t') && t[i] != t[i+1]) tf[j] = t[i],j++;
+    else tf[j] = t[i], j++;
+  }
+  printf("The result string is %s and has length %d.\n",strcpy(t,tf),len);
+  return 0;
 }
 
 /* 26. Defina uma função void insere (int v[], int N, int x) que insere um elemento (x) num
@@ -443,6 +430,7 @@ void insere (int v[], int N, int x){
     }
     if(i == N-1) v[N] = x;
   }
+  printf("The result is ");
   for(int k = 0; k<N; k++) printf("%d ",v[k]);
 }
 
@@ -458,6 +446,8 @@ void merge (int r [], int a[], int b[], int na, int nb) {
         else
             r[k++] = b[j++];
     }
+    printf("The result is ");
+    for(i=0; i<na+nb;i++) printf("%d ",r[i]);
 }
 
 /* 28. Defina uma função int crescente (int a[], int i, int j) que testa se os elementos do
@@ -530,6 +520,8 @@ int maxCresc (int v[], int N){
   return mSeq;
 }
 
+//Or
+
 int maxCresc2 (int v[], int N){
   int seq, mSeq = 0,i,ant=v[0],j;
   for(i = 1; i<N; i++){
@@ -561,6 +553,7 @@ int elimRep (int  v[],int n) {
             j++;
         }
     }
+    printf("The result is ");
     for(int k = 0; k<n; k++) printf("%d ",v[k]);
     return j;
 }
@@ -586,6 +579,7 @@ int elimRepOrd (int v[], int n){
       j++;
     }
   }
+  printf("The result is ");
   for(int k = 0; k<n; k++) printf("%d ",v[k]);
   return j;
 }
@@ -594,9 +588,17 @@ int elimRepOrd (int v[], int n){
 os vectores a (com na elementos) e b (com nb elementos) têm em comum. Assuma que os vectores a e b estão 
 ordenados por ordem crescente. */
 
+int comunsOrd (int a[], int na, int b[], int nb){
+
+}
+
 /* 36. Defina uma função int comuns (int a[], int na, int b[], int nb) que calcula quantos
 elementos os vectores a (com na elementos) e b (com nb elementos) têm em comum. Assuma
 que os vectores a e b não estão ordenados e defina a função sem alterar os vectores. */
+
+int comuns (int a[], int na, int b[], int nb){
+
+}
 
 /* 37. Defina uma função int minInd (int v[], int n) que, dado um vector v com n inteiros,
 retorna o índice do menor elemento do vector. */
@@ -618,14 +620,28 @@ void somasAc (int v[], int Ac [], int N){
     sum+=v[i];
     Ac[i] = sum;
   }
+  printf("The result is ");
+  for(i=0; i<N;i++) printf("%d ",Ac[i]);
 }
 
 /* 39. Defina uma função int triSup (int N, float m [N][N]) que testa se uma matriz quadrada é triangular 
 superior, i.e., que todos os elementos abaixo da diagonal são zeros. */
 
+int triSup (int N, float m [N][N]){
+
+}
+
 /* 40. Defina uma função void transposta (int N, float m [N][N]) que transforma uma matriz na sua transposta. */
 
+void transposta (int N, float m [N][N]){
+
+}
+
 /* 41. Defina uma função void addTo (int N, int M, int a [N][M], int b[N][M]) que adiciona a segunda matriz à primeira. */
+
+void addTo (int N, int M, int a [N][M], int b[N][M]){
+
+}
 
 /* 42. Uma forma de representar conjuntos de índices consiste em usar um array de inteiros contendo
 1 ou 0 consoante esse índice pertença ou não ao conjunto. Assim o conjunto {1, 4, 7} seria
@@ -633,11 +649,19 @@ representado por um array em que as primeiras 8 posições conteriam {0,1,0,0,1,
 Apresente uma definição da função int unionSet (int N, int v1[N], int v2[N], int
 r[N]) que coloca no array r o resultado da união dos conjuntos v1 e v2. */
 
+int unionSet (int N, int v1[N], int v2[N], int r[N]){
+
+}
+
 /* 43. Uma forma de representar conjuntos de índices consiste em usar um array de inteiros contendo
 1 ou 0 consoante esse índice pertença ou não ao conjunto. Assim o conjunto {1, 4, 7} seria
 representado por um array em que as primeiras 8 posições conteriam {0,1,0,0,1,0,0,1}.
 Apresente uma definição da função int intersectSet (int N, int v1[N], int v2[N],
 int r[N]) que coloca no array r o resultado da intersecção dos conjuntos v1 e v2. */
+
+int intersectSet (int N, int v1[N], int v2[N], int r[N]){
+
+}
 
 /* 44. Uma forma de representar multi-conjuntos de índices consiste em usar um array de inteiros
 contendo em cada posição o número de ocorrências desse índice. Assim o multi-conjunto
@@ -646,6 +670,9 @@ contendo em cada posição o número de ocorrências desse índice. Assim o mult
 Apresente uma definição da função int intersectMSet (int N, int v1[N], int v2[N],
 int r[N]) que coloca no array r o resultado da intersecção dos multi-conjuntos v1 e v2. */
 
+int intersectMSet (int N, int v1[N], int v2[N], int r[N]){
+
+}
 
 /* 45. Uma forma de representar multi-conjuntos de índices consiste em usar um array de inteiros
 contendo em cada posição o número de ocorrências desse índice. Assim o multi-conjunto
@@ -653,6 +680,10 @@ contendo em cada posição o número de ocorrências desse índice. Assim o mult
 {0,2,0,0,1,0,0,3}.
 Apresente uma definição da função int unionMSet (int N, int v1[N], int v2[N], int
 r[N]) que coloca no array r o resultado da união dos multi-conjuntos v1 e v2. */
+
+int unionMSet (int N, int v1[N], int v2[N], int r[N]){
+
+}
 
 /* 46. Uma forma de representar multi-conjuntos de índices consiste em usar um array de inteiros
 contendo em cada posição o número de ocorrências desse índice. Assim o multi-conjunto
@@ -705,6 +736,10 @@ A função deverá preencher no máximo N elementos do array e retornar o númer
 preenchidos. Se não for possível atingir a posição final com N movimentos, a função deverá
 retornar um número negativo. */
 
+int caminho (Posicao inicial, Posicao final, Movimento mov[], int N){
+
+}
+
 /* 49. Considere o seguinte tipo para representar a posição de um robot numa grelha.
 
 typedef struct posicao {
@@ -715,6 +750,10 @@ Defina a função int maisCentral (Posicao pos[], int N) que, dado um array com 
 determina o índice da posição que está mais perto da origem (note que as coordenadas de cada 
 ponto são números inteiros). */
 
+int maisCentral (Posicao pos[], int N){
+
+}
+
 /* 50. Considere o seguinte tipo para representar a posição de um robot numa grelha.
 
 typedef struct posicao {
@@ -723,6 +762,10 @@ typedef struct posicao {
 
 Defina a função int vizinhos (Posicao p, Posicao pos[], int N) que, dada uma posição
 e um array com N posições, calcula quantas dessas posições são adjacentes à posição dada. */
+
+int vizinhos (Posicao p, Posicao pos[], int N){
+
+}
 
 /*♅-----------------------------------------------------------------------Main Para Testes----------------------------------------------------------------------♅*/
 
@@ -866,6 +909,74 @@ int main(){
         scanf("%c",si); //eat newline
         scanf("%[^\n]s",s1);
         contaVogais(s1);
+        break;
+        case 23:
+        printf("Write the string you want to know if it is a palindrome: ");
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s1);
+        palindorome(s1);
+        break;
+        case 24:
+        printf("Write the string you want to remove all characters which are repeated successively: ");
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s1);
+        remRep(s1);
+        break;
+        case 25:
+        printf("Write the string you want to remove all spaces which are repeated successively: ");
+        scanf("%c",si); //eat newline
+        scanf("%[^\n]s",s1);
+        limpaEspacos(s1);
+        break;
+        case 26:
+        break;
+        case 27:
+        break;
+        case 28:
+        break;
+        case 29:
+        break;
+        case 30:
+        break;
+        case 31:
+        break;
+        case 32:
+        break;
+        case 33:
+        break;
+        case 34:
+        break;
+        case 35:
+        break;
+        case 36:
+        break;
+        case 37:
+        break;
+        case 38:
+        break;
+        case 39:
+        break;
+        case 40:
+        break;
+        case 41:
+        break;
+        case 42:
+        break;
+        case 43:
+        break;
+        case 44:
+        break;
+        case 45:
+        break;
+        case 46:
+        break;
+        case 47:
+        break;
+        case 48:
+        break;
+        case 49:
+        break;
+        case 50:
         break;
         default:
         printf("That question doesn't exist\n");

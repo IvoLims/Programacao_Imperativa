@@ -83,15 +83,14 @@ void swapNums(int *x, int*y) {
     *y = t;
 }
 
-void criaIndPorNum(Aluno t[], int N, int in[]) {
+void criaIndPorNum(Aluno t[], int N, int ind[]) {
     int i, j;
-    int ind[N];
-    for (i = 0; i < N; i++) ind[i] = i;
-
+    int in[N];
+    for (i = 0; i < N; i++) in[i] = i;
     for (i = 0; i < N; i++) {
         for (j = i; j < N; j++) 
-            if (t[ind[j]].numero < t[ind[i]].numero) swapNums(ind+i, ind+j);
-        in[ind[i]] = i;
+            if (t[in[j]].numero < t[in[i]].numero) swapNums(in+i, in+j);
+        ind[in[i]] = i;
     }
 }
 
@@ -99,12 +98,40 @@ void criaIndPorNum(Aluno t[], int N, int in[]) {
 turma e um array tal como produzido pela função da alínea anterior e imprime os números,
 nomes e notas dos alunos por ordem crescente do número de aluno. */
 
+void imprimeTurma(int ind[], Aluno t[], int N){
+    int i, j, k;
+    for(i=0; i<N; i++){
+        for(j=0; ind[j]!=i; j++);
+            printf("Número: %d Nome: %s Mini Testes: ",t[ind[j]].numero,t[ind[j]].nome);
+            for(k=1;k<6;k++)printf("%d ",t[ind[j]].miniT[k]);
+            printf("Teste: ");
+            printf("%5.2f \n",t[ind[j]].teste);
+    }
+}
+
 /* 6. Adapte a função de procura definida na alinea 2 de forma a receber um array de alunos e um
 array tal como produzido pela função criaIndPorNum. */
+
+int procuraInd (int num, Aluno t[], int ind[], int N){
+    int i = 0;
+    for(; i<N && t[i].numero == num; i++);
+    return (i < N && t[i].numero == num) ? ind[i] : -1;
+}
 
 /* 7. Defina uma outra função void criaIndPorNome (Aluno t [], int N, int ind[]) que preenche
 o vector ind com os indices correspondentes a uma ordenação do array t por ordem crescente
 do nome do aluno. */
+
+void criaIndPorNome (Aluno t [], int N, int ind[]){
+    int i, j;
+    int in[N];
+    for (i = 0; i < N; i++) in[i] = i;
+    for (i = 0; i < N; i++) {
+        for (j = i; j < N; j++) 
+            if (strcmp(t[in[j]].nome, t[in[i]].nome) < 0) swapNums(in+i, in+j);
+        ind[in[i]] = i;
+    }
+}
 
 /*♅-----------------------------------------------------------------------Main Para Testes----------------------------------------------------------------------♅*/
 
@@ -131,7 +158,7 @@ int main(){
    printf("A turma sem ordenação é assim:\n");
    for (i=0; i<4; imprimeAluno (Turma1 + i++));
    printf("A turma ordenada tem a seguinte ordem:\n");
-   ordenaPorNum (Turma1, 4);
+   ordenaPorNum(Turma1, 4);
    for (i=0; i<4; imprimeAluno (Turma1 + i++));
    Aluno Turma2 [7] = {{4444, "André", {2,1,0,2,2,2}, 10.5}
                        ,{3333, "Paulo", {0,0,2,2,2,1},  8.7}
@@ -142,9 +169,17 @@ int main(){
                        ,{5555, "Diogo", {2,2,1,1,1,0},  8.5}
                        };
    int indNum[7];
-   printf("\nO indice criado é ");
+   printf("O indice criado por número é ");
    criaIndPorNum(Turma2, 7, indNum);
    for(i=0;i<7;i++){
        printf("%d ",indNum[i]);
+   }
+   printf("\nA turma organizada usando o array de índices ");
+   imprimeTurma(indNum,Turma2,7);
+   int indNome[7];
+   criaIndPorNome(Turma2, 7, indNome);
+   printf("O indice criado por nome é ");
+   for(i=0;i<7;i++){
+       printf("%d ",indNome[i]);
    }
 }

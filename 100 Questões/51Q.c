@@ -115,6 +115,23 @@ os elementos {1,2} e a lista x os restantes {3,4,5} */
 /* 10. Apresente uma definição não recursiva da função int removeAll (LInt *, int) que remove
 todas as ocorrências de um dado inteiro de uma lista, retornando o número de células removidas. */
 
+int removeAll(LInt *l, int x) {
+    int rem = 0;
+    LInt prev = NULL;
+    while(*l) {
+        if((*l)->valor == x) {
+            if(!prev) (*l) = (*l)->prox;
+            else prev->prox = (*l)->prox;
+            rem++;
+        }
+        else {
+            prev = (*l);
+            l = &((*l)->prox);
+        }
+    }
+    return rem;
+}
+
 /* 11. Apresente uma definição da função int removeDups (LInt *) que remove os valores repetidos
 de uma lista (deixando apenas a primeira ocorrência). */
 
@@ -184,6 +201,18 @@ int maximo (LInt l){
 (libertando o respectivo espaço). Se a lista tiver n ou menos nodos, a função não altera a
 lista. A função deve retornar o comprimento final da lista. */
 
+int take (int n, LInt *l){
+    int i;
+    for(i=0; (*l)!= NULL && i < n; i++, l = &((*l)->prox));
+    if(!(*l)) return i;
+    for(;(*l);){
+        LInt temp = (*l);
+        (*l) = (*l)->prox;
+        free(temp);
+    }
+    return i;
+}
+
 /* 20. Apresente uma definição iterativa da função int drop (int n, LInt *l) que, dado um inteiro 
 n e uma lista ligada de inteiros l, apaga de l os n primeiros elementos da lista (libertando
 o respectivo espaço). Se a lista tiver n ou menos nodos, a função liberta a totalidade da lista.
@@ -204,6 +233,14 @@ int drop (int n, LInt *l){
 Nforward (LInt l, int N) que, dada uma lista circular dá como resultado o endereço do
 elemento da lista que está N posições à frente. */
 
+LInt Nforward (LInt l, int N){
+    int i;
+    for(i = 0; i<N; i++){
+        l = l->prox;
+    }
+    return l;
+}
+
 /* 22. Defina uma função int listToArray (LInt l, int v[], int N) que, dada uma lista l,
 preenche o array v com os elementos da lista.
 A função deverá preencher no máximo N elementos e retornar o número de elementos preenchidos. */
@@ -223,7 +260,7 @@ elementos de um array, pela mesma ordem em que aparecem no array.. */
 LInt arrayToList (int v[], int N){
     if(N==0) return NULL;
     LInt new = malloc(sizeof(struct lligada));
-    new -> valor = *v;
+    new ->valor = *v;
     new ->prox = arrayToList(v+1, N-1);
     return new;
 }
@@ -233,6 +270,20 @@ nova lista de inteiros contendo as somas acumuladas da lista original (que dever
 inalterada).
 Por exemplo, se a lista l tiver os valores [1,2,3,4] a lista contruída pela invocação de
 somasAcL (l) deverá conter os valores [1,3,6,10]. */
+
+LInt somasAcL (LInt l){
+    int acc = 0;
+    LInt temp = NULL, list = NULL;
+    for(; l != NULL; l = l->prox){
+        acc+=l->valor;
+        LInt prev = malloc(sizeof(struct lligada));
+        prev->valor = acc;
+        prev->prox = NULL;
+        if(!list) list = temp = prev;
+        else temp = temp->prox = prev;
+    }
+    return list;
+}
 
 /* 25. Defina uma função void remreps (LInt l) que, dada uma lista ordenada de inteiros, elimina
 dessa lista todos os valores repetidos assegurando que o espaço de memória correspondente

@@ -12,24 +12,96 @@ struct lligada *prox;
 /* 1. Apresente uma definição não recursiva da função int length (LInt) que calcula o comprimento 
 de uma lista ligada. */
 
+int length (LInt l){
+    int len = 0;
+    while(l!=NULL){
+        len++;
+        l->prox;
+    }
+    return len;
+}
+
 /* 2. Apresente uma definição não recursiva da função void freeL (LInt) que liberta o espaço
 ocupado por uma lista. */
+
+void freeL (LInt l){
+    LInt temp;
+    while(l != NULL){
+        temp = l;
+        l = l->prox;
+        free(temp);
+    }
+}
 
 /* 3. Apresente uma definição não recursiva da função void imprimeL (LInt) que imprime no
 ecran os elementos de uma lista (um por linha). */
 
+void imprimeL (LInt l){
+    for(;l!=NULL; l=l->prox){
+        printf("Value: %d;\n",l->valor);
+    }
+}
+
 /* 4. Apresente uma definição não recursiva da função LInt reverseL (LInt) que inverte uma
 lista (sem criar uma nova lista). */
+
+LInt reverseL (LInt l){
+    LInt prev = NULL;
+    LInt saveProxPos;
+    while (l != NULL)
+    {
+        saveProxPos = l->prox;
+        l->prox = prev;
+        prev = l;
+        l = saveProxPos;
+    }
+    return prev;
+}
 
 /* 5. Apresente uma definição não recursiva da função void insertOrd (LInt *, int) que insere 
 ordenadamente um elemento numa lista ordenada. */
 
+void insertOrd (LInt* l, int val){
+    LInt prev = NULL;
+    LInt new = malloc(sizeof(struct lligada));
+    new->valor = val;
+    new->prox = NULL;
+    for(; (*l) != NULL && (*l)->valor < val; prev = *l, l= &((*l)->prox));
+    if(prev){
+        new->prox = (*l);
+        prev->prox = new;
+    }else{
+        new->prox = (*l);
+        (*l) = new;
+    }
+}
 /* 6. Apresente uma definição não recursiva da função int removeOneOrd (LInt *, int) que
 remove um elemento de uma lista ordenada. Retorna 1 caso o elemento a remover não exista,
 0 no outro caso. */
 
+int removeOneOrd (LInt* l, int val){
+    LInt prev = NULL;
+    for(; (*l) != NULL && (*l)->valor != val; prev = *l, l = &((*l)->prox));
+    if(!(*l)) return 1;
+    if(prev) (*l) = (*l) -> prox;
+    else prev->prox = (*l) -> prox;
+    return 0;
+}
+
 /* 7. Defina uma função merge (LInt *r, LInt a, LInt b) que junta duas listas ordenadas (a
 e b) numa única lista ordenada (r). */
+
+void merge(LInt* r, LInt a, LInt b) {
+    if(!a && !b) return;
+    if(b == NULL || a != NULL && a->valor < b->valor) {
+        (*r) = a;
+        merge(&((*r)->prox),a->prox,b);
+    }
+    else {
+        (*r) = b;
+        merge(&((*r)->prox),a,b->prox);
+    }
+}
 
 /* 8. Defina uma função void splitQS (LInt l, int x, LInt *mx, LInt *Mx) que, dada uma
 lista ligada l e um inteiro x, parte a lista em duas (retornando os endereços dos primeiros
@@ -52,11 +124,40 @@ ocorrência) o maior elemento de uma lista não vazia, retornando o valor desse 
 /* 13. Apresente uma definição não recursiva da função void init (LInt *) que remove o último
 elemento de uma lista não vazia (libertando o correspondente espaço). */
 
+void init (LInt *l){
+    LInt prev;
+    for(;(*l) != NULL; prev = (*l), l = &((*l)->prox));
+    if(!prev){
+        free(*l);
+        (*l) = NULL;
+    }else{
+        prev->prox = NULL;
+        free(*l);
+    }
+}
+
 /* 14. Apresente uma definição não recursiva da função void appendL (LInt *, int) que acrescenta
  um elemento no fim da lista. */
 
+void appendL (LInt *l, int val){
+    LInt new = malloc(sizeof(struct lligada));
+    new -> valor = val;
+    new -> prox = NULL;
+    LInt prev = NULL;
+    if(!(*l)) *l = new;
+    else{
+        for(; (*l) -> prox; l = &((*l) -> prox));
+        (*l)->prox = new;
+    }
+}
+
 /* 15. Apresente uma definição da função void concatL (LInt *a, LInt b) que acrescenta a lista
 b à lista *a. */
+
+void concatL (LInt *a, LInt b){
+    if(*a) concatL(&((*a)->prox), b);
+    else (*a) = b;
+}
 
 /* 16. Apresente uma definição da função LInt cloneL (LInt) que cria uma nova lista ligada com
 os elementos pela ordem em que aparecem na lista argumento. */
@@ -70,16 +171,34 @@ por esta ordem. */
 /* 18. Defina uma função int maximo (LInt l) que calcula qual o maior valor armazenado numa
 lista não vazia. */
 
+int maximo (LInt l){
+    int max = l->valor; 
+    for(; l != NULL; l = l->prox){
+        if(l->valor > max) max = l->valor;
+    }
+    return max;
+}
+
 /* 19. Apresente uma definição iterativa da função int take (int n, LInt *l) que, dado um inteiro
  n e uma lista ligada de inteiros l, apaga de l todos os nodos para além do n-ésimo
 (libertando o respectivo espaço). Se a lista tiver n ou menos nodos, a função não altera a
-lista.
-A função deve retornar o comprimento final da lista. */
+lista. A função deve retornar o comprimento final da lista. */
 
-/* 20. Apresente uma definição iterativa da função int drop (int n, LInt *l) que, dado um inteiro
- n e uma lista ligada de inteiros l, apaga de l os n primeiros elementos da lista (libertando
+/* 20. Apresente uma definição iterativa da função int drop (int n, LInt *l) que, dado um inteiro 
+n e uma lista ligada de inteiros l, apaga de l os n primeiros elementos da lista (libertando
 o respectivo espaço). Se a lista tiver n ou menos nodos, a função liberta a totalidade da lista.
 A função deve retornar o número de elementos removidos. */
+
+int drop (int n, LInt *l){
+    int rem = 0;
+    if(n<=0) return rem;
+    for(rem=0;n-rem>0;rem++){
+        LInt temp = (*l);
+        (*l) = (*l)->prox;
+        free(temp);
+    }
+    return rem;
+}
 
 /* 21. O tipo LInt pode ser usado ainda para implementar listas circulares. Defina uma função LInt
 Nforward (LInt l, int N) que, dada uma lista circular dá como resultado o endereço do
@@ -89,8 +208,25 @@ elemento da lista que está N posições à frente. */
 preenche o array v com os elementos da lista.
 A função deverá preencher no máximo N elementos e retornar o número de elementos preenchidos. */
 
+int listToArray (LInt l, int v[], int N){
+    int i;
+    for (i = 0; i < N && l != NULL; i++, l = l->prox)
+    {
+        v[i] = l->valor;
+    }
+    return i;
+}
+
 /* 23. Defina uma função LInt arrayToList (int v[], int N) que constrói uma lista com os
 elementos de um array, pela mesma ordem em que aparecem no array.. */
+
+LInt arrayToList (int v[], int N){
+    if(N==0) return NULL;
+    LInt new = malloc(sizeof(struct lligada));
+    new -> valor = *v;
+    new ->prox = arrayToList(v+1, N-1);
+    return new;
+}
 
 /* 24. Defina uma função LInt somasAcL (LInt l) que, dada uma lista de inteiros, constrói uma
 nova lista de inteiros contendo as somas acumuladas da lista original (que deverá permanecer
@@ -101,6 +237,20 @@ somasAcL (l) deverá conter os valores [1,3,6,10]. */
 /* 25. Defina uma função void remreps (LInt l) que, dada uma lista ordenada de inteiros, elimina
 dessa lista todos os valores repetidos assegurando que o espaço de memória correspondente
 aos nós removidos é correctamente libertado. */
+
+void remreps (LInt l){
+    if(l){
+        while(l->prox != NULL){
+            if(l->valor == l->prox->valor){
+                LInt temp = l->prox;
+                l->prox = temp->prox;
+                free(temp);
+            }else{
+                 l = l->prox;
+            }
+        }
+    }
+}
 
 /* 26. Defina uma função LInt rotateL (LInt l) que coloca o primeiro elemento de uma lista no
 fim. Se a lista for vazia ou tiver apenas um elemento, a função não tem qualquer efeito prático
